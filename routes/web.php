@@ -1,18 +1,35 @@
-<?php
+   <?php
 
+use App\Http\Controllers\PrestamosController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LibrosController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check()) {
+        return view('libros');
+    } else {
+        return view('welcome');
+    }
 });
+
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/libros', function () {
+        return view('components.app', ['component' => 'livewire.libros-component']);
+    })->name('libros');
+    
+    Route::get('/prestamos', function () {
+        return view('components.app', ['component' => 'livewire.prestamos-component']);
+    })->name('prestamos');
+    
+    Route::get('/users', [LibrosController::class, 'showAllBook'])
+        ->name('users');
+});
+
+

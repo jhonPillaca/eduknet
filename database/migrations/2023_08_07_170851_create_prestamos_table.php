@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -14,16 +13,20 @@ return new class extends Migration
         Schema::create('prestamos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('user_id');// este campo tendría como tipo de dato integer, pero como desconozco como realmente viene el dato temporalmente lo dejo en string.
-            $table->string('book_id');// este campo tendría como tipo de dato integer, pero como desconozco como realmente viene el dato temporalmente lo dejo en string.
+            $table->unsignedBigInteger('user_id'); // modificación conociendo la tabla 
+            $table->unsignedBigInteger('book_id');
             $table->date('fecha_prestamo');
             $table->date('fecha_devolucion');
+            $table->boolean('devuelto')->default(false);
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('book_id')->references('id')->on('libros');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+
+
+
     public function down(): void
     {
         Schema::dropIfExists('prestamos');
