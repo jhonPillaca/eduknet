@@ -5,3 +5,25 @@
 [x-cloak] {
     display: none;
 }
+
+.tooltip{
+    display: none;
+    position: absolute;
+    right: 10%;
+    padding: 0 0.25rem;
+    border-radius: 5px;
+    background: #2778c4;
+    color: #fff;
+}
+.addButton:hover,.editButton:hover,.deletButton:hover{
+    cursor:help;
+}
+.addButton:hover ~.tooltip{
+    display: block;
+}
+.editButton:hover ~.tooltip{
+    display: block;
+}
+.deletButton:hover ~ .tooltip{
+    display: block;
+}

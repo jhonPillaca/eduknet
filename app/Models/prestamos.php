@@ -22,6 +22,20 @@ class Prestamos extends Model
         return $prestamo;
     }
 
+    public static function updatePrestamo($id, $user, $book, $fech_pre, $fech_dev, $devolucion){
+        return Prestamos::where('id', $id)
+            ->update([
+                'user_id' => $user,
+                'book_id' => $book,
+                'fecha_prestamo' => $fech_pre,
+                'fecha_devolucion' => $fech_dev,
+                'devuelto' => $devolucion
+            ]);
+    }
+    public static function finPrestamo($id){
+        $prestamo=Prestamos::find($id);
+        $prestamo->delete();
+    }
 
     public static function allPrestamo(){
         return Prestamos::all();
