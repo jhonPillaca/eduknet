@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
@@ -16,6 +17,7 @@ class LibrosComponent extends Component
     public $modalOpen = false;
     public $headers = ['Id', 'Titulo', 'Autor', 'Año Publicación', 'Género', 'Disponible', 'Acción'];
     public $data = [];
+    public $actionEdit=true;
     public $libros = [];
     public $titulo;
     public $autor;
@@ -25,11 +27,14 @@ class LibrosComponent extends Component
     public $editBookActive = false;
     public $bookId;
     public $input_search="";
+    public $user_logueado=false;
+    public $message = "No tienes permiso para hacer esta acción";
 
     protected $listeners=['render','deletBookId'];
     public function mount()
     {
-    
+        $userId =  Auth::user();
+        $this->user_logueado =  $userId->id ==1;
          $this->libros = Libro::allBook();
        
         $this->listBooks($this->libros);

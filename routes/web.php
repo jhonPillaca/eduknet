@@ -28,8 +28,9 @@ Route::middleware([
         return view('components.app', ['component' => 'livewire.prestamos-component']);
     })->name('prestamos');
     
-    Route::get('/users', [LibrosController::class, 'showAllBook'])
-        ->name('users');
+    Route::get('/users', function () {
+        return view('components.app', ['component' => 'livewire.user-component']);
+    })->name('users');
 });
 
 

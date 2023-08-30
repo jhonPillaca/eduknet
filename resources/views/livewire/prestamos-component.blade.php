@@ -42,12 +42,13 @@
                                                     </label>
                                                     <div class="mt-2">
                                                         <select id="book" wire:model="book"
+                                                            wire:change="bookSelected"
                                                             autocomplete="Select Book"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
                                                             <option value="">Seleccione un libro</option>
                                                            
                                                             @foreach ($books as $book)
-                                                                <option value="{{ $book->id }}">{{ $book->titulo }}
+                                                                <option value="{{ $book['id'] }}">{{ $book['titulo'] }}
                                                                 </option>
                                                             @endforeach
                                                             
@@ -62,9 +63,12 @@
                                                         <select id="user" wire:model="user"
                                                             autocomplete="Select User"
                                                             class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
-                                                            <option>United States</option>
-                                                            <option>Canada</option>
-                                                            <option>Mexico</option>
+                                                            <option>Selecione el usuario</option>
+                                                            @foreach ($users as $user)
+                                                            <option value="{{ $user['id'] }}">{{ $user['name'] }}
+                                                            </option>
+                                                        @endforeach
+                                                            
                                                         </select>
                                                     </div>
                                                 </div>
@@ -114,9 +118,9 @@
     </div>
 
     {{-- <script>
-        console.log(@json($this->users));
+        console.log(@json($user_logueado));
     </script> --}}
-    <x-data-source :headers="$headers" :data="$data">
+    <x-data-source :headers="$headers" :data="$data" :actionEdit="false" :prest="true" :estado="$fin_pres">
 
     </x-data-source>
 

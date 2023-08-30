@@ -5,7 +5,7 @@
 
 
 <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div x-data="{ isOpen: @entangle('modalOpen') }" class="bg-slate-200 rounded-sm p-2 flex items-center justify-between">
+        <div x-data="{ isOpen: @entangle('modalOpen') }" class="bg-slate-200 rounded-sm p-2 flex items-center justify-between relative">
             <h4>List Books</h4>
             <div class="buttons">
                 <input type="text" id="search" 
@@ -17,7 +17,12 @@
                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
             </div>
             <button x-on:click="isOpen=true"
-                class="bg-cyan-600 rounded-full	text-xl	text-white flex items-center justify-center w-9 h-9">+</button>
+            {{$user_logueado ? '':'disabled'}}
+                class="bg-cyan-600 rounded-full	text-xl	text-white flex items-center justify-center w-9 h-9 addButton">+</button>
+                @if (!$user_logueado)
+                   <span class="tooltip">{{$message}}</span> 
+                @endif
+                
 
             <div x-show="isOpen" class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 
@@ -117,7 +122,7 @@
         </div>
     </div>
 
-    <x-data-source :headers="$headers" :data="$data">
+    <x-data-source :headers="$headers" :data="$data" :actionEdit="$actionEdit" :prest="false" :estado="false">
 
     </x-data-source>
     <div>
